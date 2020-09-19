@@ -18,6 +18,8 @@ var end_position : Vector2 = Vector2.ZERO # Posicion del hongo en el viewport
 var start_node: PathNode # Nodo correspondiente a la posicion del player
 var end_node: PathNode # Nodo correspondiente a la posicion del hongo
 
+var panel: TextEdit
+
 #### Getter de debug para verificar lo que devuelve get_used_cells()
 func get_valid_tiles(show: bool = false):
 	if show:
@@ -50,6 +52,31 @@ func find_path(start, end):
 	
 	for node in node_path:
 		optimal_tiles.set_cell(node.position.x, node.position.y, 0) # pintamos el camino optimo
+	
+	if owner.get_node("TextEdit") != null:
+		panel = owner.get_node("TextEdit")
+		panel.text = "Nodos Abiertos  -  F   -   G   -   H      -       Padre"
+		for node in open_set:
+			panel.text += "\n"
+			panel.text += "{nodo}        -  {f}  -  {g}  -  {h}    -  {padre}".format({
+				"nodo": node.get_data().node,
+				"f": node.get_data().f,
+				"g": node.get_data().g,
+				"h": node.get_data().h,
+				"padre": node.get_data().parent
+				})
+		panel.text += "\n"
+		panel.text += "\n"
+		panel.text += "Nodos Cerrados  -  F   -   G   -   H      -       Padre"
+		for node in closed_set:
+			panel.text += "\n"
+			panel.text += "{nodo}        -  {f}  -  {g}  -  {h}    -  {padre}".format({
+				"nodo": node.get_data().node,
+				"f": node.get_data().f,
+				"g": node.get_data().g,
+				"h": node.get_data().h,
+				"padre": node.get_data().parent
+				})
 
 	return path_node_to_pos(node_path) # devolvemos el camino
 

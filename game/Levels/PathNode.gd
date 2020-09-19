@@ -21,8 +21,11 @@ func is_equal(a_path_node: Vector2) -> bool:
 #### Metodo para debug de nodos
 func print_node_data() -> void:
 	print('----------------------------------------')
-	print('Parent: {parent}'.format({'parent': parent}))
+	print('Parent: {parent}'.format({'parent': parent.name}))
 	print('Position: {pos}'.format({'pos': position}))
 	print('G: {g}'.format({'g': G}))
 	print('H: {h}'.format({'h': H}))
 	print('F: {f}'.format({'f': F}))
+
+func get_data() -> Dictionary:
+	return {"node": self, "parent": parent, "f": F, "g": G, "h": H}
