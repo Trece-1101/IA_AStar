@@ -53,7 +53,7 @@ func find_path(start, end):
 	for node in node_path:
 		optimal_tiles.set_cell(node.position.x, node.position.y, 0) # pintamos el camino optimo
 	
-	if owner.get_node("TextEdit") != null:
+	if owner.get_node_or_null("TextEdit") != null:
 		panel = owner.get_node("TextEdit")
 		panel.text = "Nodos Abiertos  -  F   -   G   -   H      -       Padre"
 		for node in open_set:
@@ -109,6 +109,9 @@ func set_start_end_nodes(node: PathNode) -> void:
 func find_closer_nodes(current_node: PathNode) -> PathNode:
 	closed_set.append(current_node) # cierra el nodo
 	close_tiles.set_cell(current_node.position.x, current_node.position.y, 0) # pinta el nodo cerrado
+	if current_node == end_node:
+		return current_node
+	
 	if current_node in open_set:
 		open_set.erase(current_node) # quita el nodo de la lista de nodos abiertos
 	
